@@ -1,21 +1,12 @@
 class Solution:
     def countTriplets(self, arr: list[int], l: int, r: int) -> int:
-        arr.sort()
+        count = 0 
+        n = len(arr)
 
-        def count(x):
-            ans = 0
-
-            for i in range(len(arr) - 2):
-                left = i + 1
-                right = len(arr) - 1
-
-                while left < right:
-                    if arr[i] + arr[left] + arr[right] <= x:
-                        ans += right - left
-                        left += 1
-                    else:
-                        right -= 1
-
-            return ans
-
-        return count(r) - count(l - 1)
+        for i in range(n - 2):
+            for j in range(i + 1, n - 1):
+                for k in range(j + 1, n):
+                    triplet_sum = arr[i] + arr[j] + arr[k]
+                    if l <= triplet_sum <= r:
+                        count += 1
+        return count
